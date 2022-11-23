@@ -19,31 +19,28 @@ local Window = Rayfield:CreateWindow({
 		Title = "Tapping Simlator",
 		Subtitle = "Key System",
 		Note = "Beta testing",
-		FileName = "SiriusKey",
-		SaveKey = true,
+		FileName = "JettyKey",
+		SaveKey = false,
 		GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-		Key = "Hello"
+		Key = "Test"
 	}
-})
-
-Rayfield:Notify({
-    Title = "welcome",
-    Content = "Thanks for using my script",
-    Duration = 6.5,
-    Image = 4483362458,
-    Actions = { -- Notification Buttons
-        Ignore = {
-            Name = "Okay!",
-            Callback = function()
-                print("The user tapped Okay!")
-            end
-		},
-	},
 })
 
 local Tab = Window:CreateTab("Auto farms", 4483362458) -- Title, Image
 
 local Section = Tab:CreateSection("Auto Farms")
+
+local Toggle = Tab:CreateToggle({
+	Name = "Toggle Example",
+	CurrentValue = false,
+	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		local ohNumber1 = 1
+		game:GetService("ReplicatedStorage").Events.Tap:FireServer(ohNumber1)
+	end,
+})
+
+
 
 local Tab = Window:CreateTab("Settings", 4483362458)
 
