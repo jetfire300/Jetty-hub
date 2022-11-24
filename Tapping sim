@@ -1,5 +1,7 @@
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
 
+getgenv().Autotap = false
+
 local Window = Rayfield:CreateWindow({
 	Name = "Tapping Simlator",
 	LoadingTitle = "Rayfield Interface Suite",
@@ -14,7 +16,7 @@ local Window = Rayfield:CreateWindow({
         	Invite = "sirius", -- The Discord invite code, do not include discord.gg/
         	RememberJoins = true -- Set this to false to make them join the discord every time they load it up
         },
-	KeySystem = true, -- Set this to true to use our key system
+	KeySystem = false, -- Set this to true to use our key system
 	KeySettings = {
 		Title = "Tapping Simlator",
 		Subtitle = "Key System",
@@ -28,24 +30,102 @@ local Window = Rayfield:CreateWindow({
 
 local Tab = Window:CreateTab("Auto farms", 4483362458) -- Title, Image
 
-local Section = Tab:CreateSection("Auto Farms")
+function AutoClick()
+	spawn(function()
+		while getgenv().Autotap == true do
+			game:GetService("ReplicatedStorage").Packages._Index["sleitnick_knit@1.4.7"].knit.Services.JumpService.RE.Tap:FireServer()
+			wait(0.01)
+		end
+	end)
+end
 
 local Toggle = Tab:CreateToggle({
-	Name = "Toggle Example",
+	Name = "AutoClick",
 	CurrentValue = false,
-	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-	Callback = function(Value)
-		local ohNumber1 = 1
-		game:GetService("ReplicatedStorage").Events.Tap:FireServer(ohNumber1)
+	Flag = "jump", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(bool)
+		getgenv().Autotap = bool
+		print("auto tap is:",bool)
+		if bool then
+			AutoClick()
+		 end
 	end,
 })
 
+local Tab = Window:CreateTab("Auto Buy", 4483362458)
+
+local Section = Tab:CreateSection("Area 1")
+
+local Button = Tab:CreateButton({
+	Name = "Creture Egg",
+	Callback = function()
+		local ohInstance1 = workspace.ScriptableObjects.Eggs.CreaturesEgg
+
+		game:GetService("ReplicatedStorage").Packages._Index["sleitnick_knit@1.4.7"].knit.Services.PetService.RF.UnboxEgg:InvokeServer(ohInstance1)
+	end,
+ })
+
+ local Button = Tab:CreateButton({
+	Name = "Exotic Egg",
+	Callback = function()
+		local ohInstance1 = workspace.ScriptableObjects.Eggs.ExoticCreaturesEgg
+
+		game:GetService("ReplicatedStorage").Packages._Index["sleitnick_knit@1.4.7"].knit.Services.PetService.RF.UnboxEgg:InvokeServer(ohInstance1)
+	end,
+ })
+
+ local Button = Tab:CreateButton({
+	Name = "Jelly Egg",
+	Callback = function()
+		local ohInstance1 = workspace.ScriptableObjects.Eggs.JellyEgg
+
+		game:GetService("ReplicatedStorage").Packages._Index["sleitnick_knit@1.4.7"].knit.Services.PetService.RF.UnboxEgg:InvokeServer(ohInstance1)
+	end,
+ })
+
+ local Button = Tab:CreateButton({
+	Name = "Spooky Egg",
+	Callback = function()
+		local ohInstance1 = workspace.ScriptableObjects.Eggs.HalloweenEgg
+
+		game:GetService("ReplicatedStorage").Packages._Index["sleitnick_knit@1.4.7"].knit.Services.PetService.RF.UnboxEgg:InvokeServer(ohInstance1)
+	end,
+ })
+
+ local Button = Tab:CreateButton({
+	Name = "Arctic Egg",
+	Callback = function()
+		local ohInstance1 = workspace.ScriptableObjects.Eggs.ArcticEgg
+
+		game:GetService("ReplicatedStorage").Packages._Index["sleitnick_knit@1.4.7"].knit.Services.PetService.RF.UnboxEgg:InvokeServer(ohInstance1)
+	end,
+ })
+
+ local Section = Tab:CreateSection("Area 2")
+
+ local Button = Tab:CreateButton({
+	Name = "Sun Egg",
+	Callback = function()
+		local ohInstance1 = workspace.ScriptableObjects.Eggs.SunEgg
+
+		game:GetService("ReplicatedStorage").Packages._Index["sleitnick_knit@1.4.7"].knit.Services.PetService.RF.UnboxEgg:InvokeServer(ohInstance1)
+	end,
+ })
+
+ local Button = Tab:CreateButton({
+	Name = "Spirit Egg",
+	Callback = function()
+		local ohInstance1 = workspace.ScriptableObjects.Eggs.SpiritEgg
+
+		game:GetService("ReplicatedStorage").Packages._Index["sleitnick_knit@1.4.7"].knit.Services.PetService.RF.UnboxEgg:InvokeServer(ohInstance1)
+	end,
+ })
 
 
 local Tab = Window:CreateTab("Settings", 4483362458)
 
 local Button = Tab:CreateButton({
-	Name = "Button Example",
+	Name = "Kill Menu",
 	Callback = function()
 		Rayfield:Destroy()
 	end,
