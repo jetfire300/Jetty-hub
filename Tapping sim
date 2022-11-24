@@ -40,15 +40,14 @@ function AutoClick()
 	end)
 end
 
-function AutoClick()
+function AutoSpace()
 	spawn(function()
-		while getgenv().ClickKey == true do
+		if getgenv().ClickKey == true then
 			keypress(0x20)
+		else
+			keyrelease(0x20)
 		end
-		wait(0.001)
-		while getgenv().ClickKey == false do
-			keyrelease(0x20) 
-		end
+		wait(.001)
 	end)
 end
 
@@ -57,7 +56,7 @@ end
 local Toggle = Tab:CreateToggle({
 	Name = "AutoClick",
 	CurrentValue = false,
-	Flag = "Space", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Flag = "Jump", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(bool)
 		getgenv().Autotap = bool
 		print("auto tap is:",bool)
@@ -68,19 +67,19 @@ local Toggle = Tab:CreateToggle({
 })
 
 local Toggle = Tab:CreateToggle({
-	Name = "AutoClick",
+	Name = "AutoJump",
 	CurrentValue = false,
-	Flag = "jump", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Flag = "Space", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(bool)
 		getgenv().ClickKey = bool
 		print("Auto Jump is:",bool)
 		if bool then
-			AutoClick()
+			AutoSpace()
 		end
 	end,
 })
 
-local Tab = Window:CreateTab("Auto Buy", 4483362458)
+local Tab = Window:CreateTab("Buy", 4483362458)
 
 local Section = Tab:CreateSection("Upgrades")
 
