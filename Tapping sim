@@ -1,6 +1,7 @@
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
 
 getgenv().Autotap = false
+getgenv().ClickKey = false
 
 local Window = Rayfield:CreateWindow({
 	Name = "Tapping Simlator",
@@ -39,10 +40,24 @@ function AutoClick()
 	end)
 end
 
+function AutoClick()
+	spawn(function()
+		while getgenv().ClickKey == true do
+			keypress(0x20)
+		end
+		wait(0.001)
+		while getgenv().ClickKey == false do
+			keyrelease(0x20) 
+		end
+	end)
+end
+
+
+
 local Toggle = Tab:CreateToggle({
 	Name = "AutoClick",
 	CurrentValue = false,
-	Flag = "jump", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Flag = "Space", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(bool)
 		getgenv().Autotap = bool
 		print("auto tap is:",bool)
@@ -52,9 +67,31 @@ local Toggle = Tab:CreateToggle({
 	end,
 })
 
+local Toggle = Tab:CreateToggle({
+	Name = "AutoClick",
+	CurrentValue = false,
+	Flag = "jump", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(bool)
+		getgenv().ClickKey = bool
+		print("Auto Jump is:",bool)
+		if bool then
+			AutoClick()
+		end
+	end,
+})
+
 local Tab = Window:CreateTab("Auto Buy", 4483362458)
 
-local Section = Tab:CreateSection("Area 1")
+local Section = Tab:CreateSection("Upgrades")
+
+local Button = Tab:CreateButton({
+	Name = "Upgrade Level",
+	Callback = function()
+		game:GetService("ReplicatedStorage").Packages._Index["sleitnick_knit@1.4.7"].knit.Services.UpgradeService.RF.UpgradeClickerLvl:InvokeServer()
+	end,
+ })
+
+local Section = Tab:CreateSection("Race 1")
 
 local Button = Tab:CreateButton({
 	Name = "Creture Egg",
@@ -101,7 +138,7 @@ local Button = Tab:CreateButton({
 	end,
  })
 
- local Section = Tab:CreateSection("Area 2")
+ local Section = Tab:CreateSection("Race 2")
 
  local Button = Tab:CreateButton({
 	Name = "Sun Egg",
@@ -121,6 +158,15 @@ local Button = Tab:CreateButton({
 	end,
  })
 
+ local Button = Tab:CreateButton({
+	Name = "Magma Egg",
+	Callback = function()
+		local ohInstance1 = workspace.ScriptableObjects.Eggs.MagmaEgg
+
+		game:GetService("ReplicatedStorage").Packages._Index["sleitnick_knit@1.4.7"].knit.Services.PetService.RF.UnboxEgg:InvokeServer(ohInstance1)
+	end,
+ })
+
 
 local Tab = Window:CreateTab("Settings", 4483362458)
 
@@ -128,5 +174,7 @@ local Button = Tab:CreateButton({
 	Name = "Kill Menu",
 	Callback = function()
 		Rayfield:Destroy()
+		getgenv().Autotap = false
+		getgenv().ClickKey = false
 	end,
 })
